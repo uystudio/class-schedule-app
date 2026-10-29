@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>营职课表 下载 · 安卓版 v1.0.68</title>
+<meta name="description" content="营职课表 v1.0.68 安卓安装包下载。扫码登录教务系统，整学期课表自动抓取到手机本地，离线可看，上课前灵动岛提醒。">
+<meta name="theme-color" content="#F5F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="营职课表 v1.0.68 下载">
+<meta property="og:description" content="整学期课表自动抓取到本地，离线可看，上课前灵动岛提醒。">
+<meta property="og:image" content="assets/icon-512.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<style>
+  :root{
+    --bg:#F5F5F7; --card:#FFFFFF; --card-2:#FFFFFF;
+    --t1:#1C1C1E; --t2:#6E6E73; --t3:#8E8E93;
+    --blue:#0A84FF; --blue-d:#0060D6; --green:#30D158; --orange:#FF9F0A;
+    --sep:rgba(60,60,67,.12); --fill:rgba(120,120,128,.12);
+    --shadow:0 1px 3px rgba(0,0,0,.06), 0 8px 28px rgba(0,0,0,.06);
+    --radius:22px;
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro SC","SF Pro Text","PingFang SC","HarmonyOS Sans SC","MiSans","Microsoft YaHei",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000000; --card:#1C1C1E; --card-2:#2C2C2E;
+      --t1:#F5F5F7; --t2:#A1A1A6; --t3:#8E8E93;
+      --sep:rgba(255,255,255,.12); --fill:rgba(120,120,128,.24);
+      --shadow:0 1px 3px rgba(0,0,0,.5), 0 12px 36px rgba(0,0,0,.5);
+    }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--t1);font-family:var(--font);
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  a{color:var(--blue);text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+  /* ── 顶栏 ── */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+    background:color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom:.5px solid var(--sep);
+  }
+  .nav .wrap{display:flex;align-items:center;gap:10px;height:56px}
+  .nav img{width:28px;height:28px;border-radius:8px}
+  .nav b{font-size:16px;font-weight:600;letter-spacing:-.01em}
+  .nav .grow{flex:1}
+  .nav .pill{
+    display:none;align-items:center;gap:6px;font-size:13px;color:var(--t2);
+    padding:6px 12px;border-radius:999px;background:var(--fill);
+  }
+  @media(min-width:720px){.nav .pill{display:flex}}
+
+  /* ── 按钮 ── */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    height:54px;padding:0 30px;border-radius:16px;border:0;cursor:pointer;
+    font-size:17px;font-weight:600;font-family:inherit;
+    background:linear-gradient(180deg,var(--blue),var(--blue-d));
+    color:#fff;box-shadow:0 8px 22px rgba(10,132,255,.32);
+    transition:transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s, filter .18s;
+  }
+  .btn:hover{filter:brightness(1.05);box-shadow:0 10px 26px rgba(10,132,255,.4)}
+  .btn:active{transform:scale(.975)}
+  .btn.small{height:40px;padding:0 18px;font-size:14px;border-radius:12px;box-shadow:none}
+  .btn.ghost{background:var(--fill);color:var(--t1);box-shadow:none}
+
+  /* ── Hero ── */
+  .hero{padding:56px 0 40px}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+  @media(min-width:880px){.hero-grid{grid-template-columns:1.08fr .92fr;gap:36px}}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;
+    color:var(--blue);background:rgba(10,132,255,.1);padding:6px 13px;border-radius:999px;
+    margin-bottom:18px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(48,209,88,.18)}
+  h1{
+    margin:0 0 16px;font-size:clamp(30px,6.2vw,46px);line-height:1.14;
+    font-weight:700;letter-spacing:-.022em;
+  }
+  h1 .hl{background:linear-gradient(92deg,var(--blue),#7B5CFF 60%,#FF375F);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{margin:0 0 26px;font-size:clamp(15px,2.2vw,18px);color:var(--t2);max-width:38em;line-height:1.65}
+
+  .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .chip{
+    font-size:12.5px;color:var(--t2);background:var(--fill);
+    padding:6px 11px;border-radius:9px;font-variant-numeric:tabular-nums;
+  }
+  .sha{
+    margin-top:14px;font-size:12px;color:var(--t3);display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  }
+  .sha code{
+    flex:1 1 100%;min-width:0;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+    background:var(--fill);padding:6px 9px;border-radius:7px;word-break:break-all;
+    overflow-wrap:anywhere;color:var(--t2);
+  }
+  .copy{
+    border:0;background:var(--fill);color:var(--t2);font-size:11.5px;font-family:inherit;
+    padding:4px 9px;border-radius:7px;cursor:pointer;white-space:nowrap;
+  }
+  .copy:active{opacity:.6}
+
+  /* ── 手机框 ── */
+  .phone-wrap{display:flex;justify-content:center}
+  .phone{
+    position:relative;width:min(300px,78vw);aspect-ratio:9/19.5;
+    background:#0B0B0C;border-radius:46px;padding:9px;
+    box-shadow:0 30px 70px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.08) inset;
+  }
+  .phone::after{
+    content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);
+    width:86px;height:23px;background:#0B0B0C;border-radius:14px;z-index:2;
+  }
+  .phone img{width:100%;height:100%;object-fit:cover;object-fit:cover;border-radius:38px;display:block}
+  .phone .badge{
+    position:absolute;left:-14px;bottom:38px;z-index:3;
+    display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:14px;
+    background:rgba(28,28,30,.82);color:#fff;font-size:12.5px;font-weight:600;
+    backdrop-filter:blur(12px);box-shadow:0 10px 26px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12);
+  }
+  .phone .badge span.k{color:#30D158}
+
+  /* ── 通用区块 ── */
+  section{padding:14px 0}
+  .sec-title{font-size:clamp(21px,3.4vw,27px);font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+  .sec-sub{color:var(--t2);font-size:14.5px;margin:0 0 22px}
+
+  /* ── 设计图展示（这一块固定浅色，像画册里的一页） ── */
+  .gallery{
+    background:#F3F3F5;border-radius:28px;padding:26px 26px 30px;
+    margin:0 -6px;
+  }
+  @media(min-width:760px){ .gallery{padding:34px 34px 38px} }
+  .gallery h2{color:#1C1C1E;margin:0 0 6px}
+  .gallery .sec-sub{color:#6E6E73;margin-bottom:22px}
+  .gal{display:grid;grid-template-columns:1fr;gap:22px;align-items:start}
+  @media(min-width:760px){ .gal{grid-template-columns:1fr 1fr;gap:26px 22px} .gal .wide{grid-column:1/-1} }
+  .gal figure{margin:0}
+  .gal picture{display:block}
+  .gal img{
+    width:100%;height:auto;display:block;border-radius:14px;
+  }
+  .gal figcaption{
+    margin-top:10px;font-size:13px;line-height:1.65;color:#6E6E73;
+  }
+  .gal figcaption b{
+    display:block;color:#1C1C1E;font-weight:600;font-size:13.5px;
+    margin-bottom:2px;
+  }
+  .gal figcaption b::before{
+    content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+    background:#0A84FF;margin-right:7px;vertical-align:middle;
+    transform:translateY(-1px);
+  }
+
+  /* ── 特性卡 ── */
+  .feats{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:620px){.feats{grid-template-columns:1fr 1fr}}
+  @media(min-width:920px){.feats{grid-template-columns:repeat(3,1fr)}}
+  .feat{
+    background:var(--card);border-radius:var(--radius);padding:20px;
+    border:.5px solid var(--sep);box-shadow:var(--shadow);
+  }
+  .feat .ico{
+    width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    background:rgba(10,132,255,.12);margin-bottom:13px;
+  }
+  .feat .ico svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .feat h3{margin:0 0 6px;font-size:15.5px;font-weight:650;letter-spacing:-.01em}
+  .feat p{margin:0;font-size:13.5px;color:var(--t2);line-height:1.6}
+
+  /* ── 步骤 ── */
+  .steps{display:grid;grid-template-columns:1fr;gap:12px;counter-reset:s}
+  @media(min-width:720px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{
+    position:relative;background:var(--card);border-radius:var(--radius);padding:22px 20px 20px;
+    border:.5px solid var(--sep);box-shadow:var(--shadow);counter-increment:s;
+  }
+  .step::before{
+    content:counter(s);position:absolute;top:-11px;left:20px;
+    width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;
+    font-size:13px;font-weight:700;display:grid;place-items:center;
+    box-shadow:0 4px 10px rgba(10,132,255,.35);
+  }
+  .step h3{margin:6px 0 6px;font-size:15.5px;font-weight:650}
+  .step p{margin:0;font-size:13.5px;color:var(--t2);line-height:1.6}
+
+  /* ── 更新日志 ── */
+  .log{background:var(--card);border-radius:var(--radius);border:.5px solid var(--sep);box-shadow:var(--shadow);overflow:hidden}
+  .log-item{padding:18px 20px;border-bottom:.5px solid var(--sep)}
+  .log-item:last-child{border-bottom:0}
+  .log-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .log-ver{font-size:14.5px;font-weight:700;font-variant-numeric:tabular-nums}
+  .log-tag{font-size:11px;font-weight:600;color:var(--blue);background:rgba(10,132,255,.12);padding:2px 8px;border-radius:6px}
+  .log-date{font-size:12.5px;color:var(--t3);margin-left:auto}
+  .log ul{margin:0;padding-left:18px}
+  .log li{font-size:13.5px;color:var(--t2);line-height:1.75}
+
+  /* ── FAQ ── */
+  .faq{background:var(--card);border-radius:var(--radius);border:.5px solid var(--sep);box-shadow:var(--shadow);overflow:hidden}
+  details{border-bottom:.5px solid var(--sep)}
+  details:last-child{border-bottom:0}
+  summary{
+    list-style:none;cursor:pointer;padding:16px 20px;font-size:14.5px;font-weight:550;
+    display:flex;align-items:center;gap:10px;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{
+    content:"";margin-left:auto;width:8px;height:8px;
+    border-right:2px solid var(--t3);border-bottom:2px solid var(--t3);
+    transform:rotate(45deg) translateY(-2px);transition:transform .25s;flex:0 0 auto;
+  }
+  details[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+  details .body{padding:0 20px 18px;font-size:13.5px;color:var(--t2);line-height:1.75}
+
+  /* ── 校验卡 ── */
+  .verify{
+    background:var(--card);border-radius:var(--radius);border:.5px solid var(--sep);
+    box-shadow:var(--shadow);padding:22px;
+  }
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:9px 16px;font-size:13.5px}
+  .kv dt{color:var(--t3)}
+  .kv dd{margin:0;color:var(--t1);word-break:break-all;font-variant-numeric:tabular-nums}
+  .kv code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+
+  /* ── 软件更新 ── */
+  .update{background:var(--card);border-radius:var(--radius);border:.5px solid var(--sep);box-shadow:var(--shadow);padding:24px}
+  .up-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:6px}
+  .up-head .ver{font-size:20px;font-weight:700;letter-spacing:-.02em}
+  .up-head .tag{font-size:11.5px;font-weight:600;color:var(--blue);background:rgba(10,132,255,.12);padding:3px 9px;border-radius:7px}
+  .up-sub{font-size:13.5px;color:var(--t2);margin:0 0 6px}
+  .up-state{display:none;margin:14px 0;padding:12px 15px;border-radius:12px;font-size:14px;line-height:1.6}
+  .up-state.show{display:block}
+  .up-state.new{background:rgba(255,159,10,.14);color:var(--t1);border:.5px solid rgba(255,159,10,.35)}
+  .up-state.ok{background:rgba(48,209,88,.12);color:var(--t1);border:.5px solid rgba(48,209,88,.3)}
+  .up-state.warn{background:rgba(255,69,58,.12);color:var(--t1);border:.5px solid rgba(255,69,58,.3)}
+  .up-rows{display:grid;grid-template-columns:1fr;gap:10px;margin-top:18px}
+  @media(min-width:720px){.up-rows{grid-template-columns:repeat(3,1fr)}}
+  .up-row{display:flex;gap:11px;align-items:flex-start;background:var(--fill);border-radius:13px;padding:13px 15px}
+  .up-row b{font-size:14px;font-weight:650;display:block;margin-bottom:2px}
+  .up-row p{margin:0;font-size:12.5px;color:var(--t2);line-height:1.6}
+  .up-row .n{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;margin-top:1px}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+  .btn.pulse{animation:pulse 1.6s ease-in-out infinite;box-shadow:0 0 0 6px rgba(255,159,10,.22)}
+
+  /* ── 微信提示 ── */
+  #wx{
+    display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);
+    backdrop-filter:blur(6px);padding:24px;
+  }
+  #wx.show{display:grid;place-items:center}
+  #wx .box{background:var(--card);border-radius:20px;padding:24px;max-width:340px;text-align:center}
+  #wx h4{margin:0 0 8px;font-size:17px}
+  #wx p{margin:0 0 16px;font-size:13.5px;color:var(--t2);line-height:1.7}
+  #wx svg{width:52px;height:52px;stroke:var(--blue);fill:none;stroke-width:2;margin-bottom:12px}
+
+  /* ── 页脚 ── */
+  footer{
+    margin-top:44px;padding:28px 0 40px;border-top:.5px solid var(--sep);
+    text-align:center;font-size:12.5px;color:var(--t3);line-height:1.9;
+  }
+
+  /* ── 入场动画（仅在 JS 可用时隐藏元素，避免脚本失效后页面空白） ── */
+  .js .reveal{opacity:0;transform:translateY(16px)}
+  .js .reveal.in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1)}
+  @media (prefers-reduced-motion:reduce){
+    .js .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* 复制提示 */
+  #toast{
+    position:fixed;left:50%;bottom:34px;transform:translate(-50%,20px);z-index:120;
+    background:rgba(28,28,30,.92);color:#fff;font-size:13.5px;padding:10px 18px;border-radius:999px;
+    opacity:0;pointer-events:none;transition:.28s cubic-bezier(.2,.8,.2,1);backdrop-filter:blur(10px);
+  }
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<!-- 微信内置浏览器提示 -->
+<div id="wx">
+  <div class="box">
+    <svg viewBox="0 0 24 24"><path d="M12 16v-8M8 12l4-4 4 4"/><rect x="3" y="2" width="18" height="20" rx="3"/></svg>
+    <h4>请在浏览器中打开</h4>
+    <p>微信内无法直接下载安装包。<br>请点右上角「···」，选择<b>「在浏览器打开」</b>。</p>
+    <button class="btn small" onclick="document.getElementById('wx').classList.remove('show')">知道了</button>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <img src="assets/icon-192.png" alt="">
+    <b>营职课表</b>
+    <div class="grow"></div>
+    <div class="pill">v1.0.68 · 24.7 MB</div>
+    <a class="btn small" href="apk/yingzhi-timetable-v1.0.68.zip" download="营职课表-v1.0.68.zip">下载</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>最新版 v1.0.68 已发布</div>
+      <h1>上课不迟到，<br>从<span class="hl">看一眼课表</span>开始</h1>
+      <p class="lede">
+        扫码登录学校教务系统，整学期课表自动抓取到手机本地。
+        没网也能看，上课前 10 分钟从灵动岛滑出来提醒你。
+
+      <div class="cta-row">
+        <a class="btn" href="apk/yingzhi-timetable-v1.0.68.zip" download="营职课表-v1.0.68.zip">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+          下载安装包
+        </a>
+        <a class="btn ghost" href="#logs">更新内容</a>
+      </div>
+
+      <div class="meta">
+        <span class="chip">版本 v1.0.68（32）</span>
+        <span class="chip">24.7 MB</span>
+        <span class="chip">Android 7.0+</span>
+        <span class="chip">2026 年 10 月 20 日</span>
+      </div>
+
+      <div class="sha">
+        <span>解压后 APK 的 SHA-256</span>
+        <button class="copy" onclick="copySha()">复制</button>
+        <code id="sha">E8413A92284896127FDD4900DE95DB142D6599494BCFF019AE64DB0934E8468A</code>
+      </div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <img src="assets/today.png?v=3" alt="今日课表界面">
+        <div class="badge"><span class="k">●</span> 课前 10 分钟提醒</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="shots" class="gallery reveal">
+    <h2 class="sec-title">实机效果</h2>
+    <p class="sec-sub">四个页面，明暗两套主题，都是现在这版的样子。</p>
+
+    <div class="gal">
+      <figure>
+        <picture><source srcset="assets/shots/notify.webp?v=3" type="image/webp"><img src="assets/shots/notify.png?v=3" alt="锁屏通知与周视图" loading="lazy" decoding="async"></picture>
+        <figcaption><b>提醒直接进系统通知栏</b>课前 10 分钟一条，App 没开也会弹</figcaption>
+      </figure>
+
+      <figure>
+        <picture><source srcset="assets/shots/pages.webp?v=3" type="image/webp"><img src="assets/shots/pages.png?v=3" alt="今日、课表、待办" loading="lazy" decoding="async"></picture>
+        <figcaption><b>今日 / 课表 / 待办</b>三个页面来回切，状态始终跟着今天走</figcaption>
+      </figure>
+
+      <figure>
+        <picture><source srcset="assets/shots/timeline.webp?v=3" type="image/webp"><img src="assets/shots/timeline.png?v=3" alt="今日时间轴近景" loading="lazy" decoding="async"></picture>
+        <figcaption><b>时间轴按节次铺满</b>有课显示课程卡，没课也留白写清楚</figcaption>
+      </figure>
+
+      <figure>
+        <picture><source srcset="assets/shots/theme.webp?v=3" type="image/webp"><img src="assets/shots/theme.png?v=3" alt="浅色与深色对照" loading="lazy" decoding="async"></picture>
+        <figcaption><b>深浅色同一套排版</b>跟随系统，夜里看不刺眼</figcaption>
+      </figure>
+
+      <figure class="wide">
+        <picture><source srcset="assets/shots/all.webp?v=3" type="image/webp"><img src="assets/shots/all.png?v=3" alt="全部界面总览" loading="lazy" decoding="async"></picture>
+        <figcaption><b>全部界面一览</b>上面一排浅色，下面一排深色</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="feats">
+    <h2 class="sec-title">它能帮你省掉这些事</h2>
+    <p class="sec-sub">不用每天早上翻教务系统，也不用记第几周上什么课。</p>
+    <div class="feats reveal">
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg></div>
+        <h3>扫码就登录</h3>
+        <p>企业微信扫一下，不用记教务系统的账号密码，也不用手输验证码。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg></div>
+        <h3>整学期一次抓完</h3>
+        <p>自动翻遍每一周，课名、教室、老师、周次全收下来，不用一周一周点。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 16a5.5 5.5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/><path d="M2 9a15 15 0 0 1 20 0"/></svg></div>
+        <h3>没网也能看</h3>
+        <p>课表全存在手机本地。地下车库、教学楼没信号，照样打得开。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+        <h3>课前灵动岛提醒</h3>
+        <p>提前 10 分钟从屏幕顶部滑出，课名、地点、几点上课一眼看到。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
+        <h3>通知栏兜底</h3>
+        <p>App 没打开也会响。后台服务盯着时间，到点直接弹系统通知。</p>
+      </div>
+      <div class="feat">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
+        <h3>深色模式</h3>
+        <p>跟随系统自动切换，晚上在被窝里看课表不刺眼。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2 class="sec-title">三步装好</h2>
+    <p class="sec-sub">安卓手机，Android 7.0 及以上。</p>
+    <div class="steps reveal">
+      <div class="step">
+        <h3>下载安装包</h3>
+        <p>点上面的蓝色按钮，把 24.7 MB 的压缩包下到手机里。下载完先解压，得到一个 .apk 文件，再点开安装。</p>
+      </div>
+      <div class="step">
+        <h3>允许安装</h3>
+        <p>点开文件安装。如果提示「未知来源」，选「允许本次安装」即可——这不是病毒警告，只是安卓的常规提示。</p>
+      </div>
+      <div class="step">
+        <h3>扫码登录</h3>
+        <p>首次打开跟着引导走：保存二维码 → 打开企业微信扫一扫 → 课表自动抓取完成。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="update">
+    <h2 class="sec-title">软件更新</h2>
+    <p class="sec-sub">装了旧版？点一下就知道要不要升。更新不用卸载，课表数据都在。</p>
+    <div class="update reveal">
+      <div class="up-head">
+        <span class="ver">v1.0.68</span>
+        <span class="tag">最新版本 · build 32</span>
+      </div>
+      <p class="up-sub">2026 年 10 月 20 日 发布 · 24.7 MB · Android 7.0+</p>
+      <div id="up-state" class="up-state"></div>
+      <div class="cta-row">
+        <a id="up-dl" class="btn" href="apk/yingzhi-timetable-v1.0.68.zip" download="营职课表-v1.0.68.zip">下载安装包</a>
+        <button class="btn ghost" onclick="checkUpdate()">检查更新</button>
+      </div>
+      <div class="up-rows">
+        <div class="up-row"><span class="n">1</span><div><b>不用卸载</b><p>直接在旧版上覆盖安装，课表、登录状态全部保留。</p></div></div>
+        <div class="up-row"><span class="n">2</span><div><b>核对文件</b><p>下完在「文件校验」里核对 SHA-256 和大小，防止文件不完整。</p></div></div>
+        <div class="up-row"><span class="n">3</span><div><b>打开即新版</b><p>安装完直接打开就是最新版，不用再做任何设置。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="logs">
+    <h2 class="sec-title">更新内容</h2>
+    <p class="sec-sub">当前版本 v1.0.68，发布于 2026 年 10 月 20 日。</p>
+    <div class="log reveal">
+<div class="log-item"><div class="log-head"><span class="log-ver">v1.0.68</span><span class="log-tag">当前版本</span></div><ul><li>修复：从「我的」切回「今日」时，偶尔显示成前一天的课表</li><li>地点显示统一去掉括号别名，例如「博识楼（综合教学楼）303」显示为「博识楼303」</li><li>抓取兼容合并单元格的课表，避免同一门课被写进相邻的星期</li></ul></div>
+<div class="log-item"><div class="log-head"><span class="log-ver">v1.0.67</span></div><ul><li>今日卡片、灵动岛、通知栏、待办、周视图的地点显示统一简化</li><li>抓取解析加固（colspan 处理），新增抓取诊断日志</li></ul></div>
+<div class="log-item"><div class="log-head"><span class="log-ver">v1.0.65 – 1.0.66</span></div><ul><li>15 项稳定性与性能优化：资源泄漏、状态同步、字符串匹配、深色模式硬编码</li><li>桌面安装包改为只保留最新一个</li></ul></div>
+<div class="log-item"><div class="log-head"><span class="log-ver">v1.0.60 – 1.0.64</span></div><ul><li>抓取改成事务批量写入，整学期抓取明显更快</li><li>界面全面 iOS 化：灵动岛、毛玻璃、圆角，告别 Material 默认样式</li><li>新增深色模式，跟随系统自动切换</li></ul></div>
+<div class="log-item"><div class="log-head"><span class="log-ver">v1.0.54 – 1.0.58</span></div><ul><li>企业微信扫码登录自动化，登录后自动跳转教务系统</li><li>首次使用引导页迭代，照着点就行</li></ul></div>
+<div class="log-item"><div class="log-head"><span class="log-ver">v1.0.52 – 1.0.53</span></div><ul><li>周末定位修复：周六、周日自动显示下一周的课</li><li>灵动岛防误弹：深夜不再弹提醒</li></ul></div>
+  </section>
+
+  <section id="verify">
+    <h2 class="sec-title">文件校验</h2>
+    <p class="sec-sub">这是自己做的学生工具，没有经过应用商店审核，请核对文件信息再安装。</p>
+    <div class="verify reveal">
+      <dl class="kv">
+        <dt>文件名</dt><dd>营职课表-v1.0.68.zip</dd>
+        <dt>压缩包大小</dt><dd>24.7 MB（25,858,112 字节）</dd>
+        <dt>版本</dt><dd>v1.0.68（build 32）</dd>
+        <dt>解压后 APK 的 SHA-256</dt><dd><code>E8413A92284896127FDD4900DE95DB142D6599494BCFF019AE64DB0934E8468A</code></dd>
+        <dt>下载地址</dt><dd><a href="apk/yingzhi-timetable-v1.0.68.zip">apk/yingzhi-timetable-v1.0.68.zip</a></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 class="sec-title">常见问题</h2>
+    <div class="faq reveal">
+      <details>
+        <summary>为什么不从应用商店下载？</summary>
+        <div class="body">这个 App 是同学自己做的，目前还没上架应用商店，本页就是唯一的官方下载地址。不要从别的群聊转发或网盘链接安装，那些可能被改过。</div>
+      </details>
+      <details>
+        <summary>会收集我的课表或个人信息吗？</summary>
+        <div class="body">课表只存在你自己的手机里（本地数据库），不会上传到任何服务器。App 只会上报一个匿名的设备标识，用来统计每天有多少人在用，不包含姓名、学号、课表内容。</div>
+      </details>
+      <details>
+        <summary>为什么要通知和闹钟权限？</summary>
+        <div class="body">只用于上课提醒。通知权限让提醒能弹出来，「闹钟和提醒」权限让它在后台也能准时触发。不给这两个权限，课表照样能看，只是不会提醒。</div>
+      </details>
+      <details>
+        <summary>换手机会怎么样？</summary>
+        <div class="body">课表不会自动同步过去，需要在新手机上重新扫码抓一次。因为是本地存储，旧手机上卸载 App 也会一起清空。</div>
+      </details>
+      <details>
+        <summary>装不上 / 打开闪退怎么办？</summary>
+        <div class="body">先确认系统是 Android 7.0 或更高。如果下载到的文件大小不是 24.7 MB，说明没下完整，重新下一次。还是不行的话，把手机型号和系统版本告诉作者。</div>
+      </details>
+      <details>
+        <summary>教务系统改版了抓不到课表？</summary>
+        <div class="body">抓取依赖学校页面的结构，学校改版可能会失效。遇到这种情况把截图发给作者，会尽快适配。</div>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>营职课表 · 学生自制，仅提供给营口职业技术学院的同学使用</div>
+    <div>Powered by Parhat Ali · 本页不收集任何信息</div>
+    <div style="margin-top:10px;opacity:.7">页面生成于 2026-10-29 19:37</div>
+  </div>
+</footer>
+
+<div id="toast">已复制</div>
+
+<script>
+(function(){
+  // 微信内置浏览器：直接下载会被拦，提示用户去浏览器
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.indexOf('micromessenger') > -1) {
+    document.getElementById('wx').classList.add('show');
+  }
+
+  // 入场动画
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold: .12});
+    els.forEach(function(el){ io.observe(el); });
+    // 保险：3 秒后仍未触发的也显示，绝不留下空白区域
+    setTimeout(function(){
+      els.forEach(function(el){ el.classList.add('in'); });
+    }, 3000);
+  } else {
+    els.forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+
+function toast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg || '已复制';
+  t.classList.add('show');
+  clearTimeout(t._h);
+  t._h = setTimeout(function(){ t.classList.remove('show'); }, 1600);
+}
+
+function copySha(){
+  var text = document.getElementById('sha').textContent.trim();
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(function(){ toast('SHA-256 已复制'); },
+      function(){ fallbackCopy(text); });
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text){
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast('SHA-256 已复制'); }
+  catch(e){ toast('复制失败，请手动选中'); }
+  document.body.removeChild(ta);
+}
+
+/* ── 软件更新：版本对比 ── */
+function compareVer(a, b){
+  a = (a || '').replace(/^v/i, ''); b = (b || '').replace(/^v/i, '');
+  var pa = a.split('.'), pb = b.split('.');
+  for (var i = 0; i < 3; i++){
+    var x = parseInt(pa[i], 10) || 0, y = parseInt(pb[i], 10) || 0;
+    if (x !== y) return x < y ? -1 : 1;
+  }
+  return 0;
+}
+function checkUpdate(){
+  var cur = '1.0.68';
+  var m = location.search.match(/[?&]from=([\d.]+)/);
+  var from = m ? m[1] : '';
+  var box = document.getElementById('up-state');
+  var btn = document.getElementById('up-dl');
+  if (!from){
+    box.className = 'up-state ok show';
+    box.innerHTML = '本页就是最新版本 v' + cur + '，直接下载即可。';
+    return;
+  }
+  var c = compareVer(from, cur);
+  if (c < 0){
+    box.className = 'up-state new show';
+    box.innerHTML = '发现新版本 v' + cur + '（你当前是 v' + from + '），点下方按钮覆盖安装即可更新。';
+    btn.classList.add('pulse');
+  } else if (c === 0){
+    box.className = 'up-state ok show';
+    box.innerHTML = '已是最新版本 v' + cur + '。';
+  } else {
+    box.className = 'up-state warn show';
+    box.innerHTML = '你当前版本 v' + from + ' 比本页还新，请确认下载来源是否为官方。';
+  }
+}
+checkUpdate();
+
+
+</script>
+</body>
+</html>
