@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>营职课表 · 发布管理台</title>
+<style>
+  :root {
+    --bg: #f5f6fa; --card: #ffffff; --t1: #111827; --t2: #6b7280;
+    --blue: #0a6cff; --blue-soft: rgba(10,108,255,.10);
+    --line: rgba(17,24,39,.08); --ok: #16a34a; --warn: #d97706;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1117; --card: #1a1d26; --t1: #f3f4f6; --t2: #9ca3af;
+      --line: rgba(255,255,255,.10); --blue-soft: rgba(10,108,255,.18);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--t1);
+    line-height: 1.6; padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .head {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .head h1 { font-size: 24px; font-weight: 800; }
+  .badge {
+    font-size: 12px; color: var(--blue); background: var(--blue-soft);
+    padding: 4px 10px; border-radius: 999px; font-weight: 600;
+  }
+  .card {
+    background: var(--card); border-radius: 16px; padding: 20px;
+    margin-bottom: 16px; border: 1px solid var(--line);
+  }
+  .card h2 { font-size: 17px; font-weight: 700; margin-bottom: 12px; }
+  .kv { display: grid; grid-template-columns: 110px 1fr; row-gap: 6px; font-size: 14px; }
+  .kv dt { color: var(--t2); }
+  .kv dd { word-break: break-all; }
+  .kv dd code { background: var(--blue-soft); color: var(--blue); padding: 1px 6px; border-radius: 6px; font-size: 12px; }
+  .step { display: flex; gap: 12px; margin-bottom: 16px; }
+  .step-n {
+    width: 26px; height: 26px; flex: none; border-radius: 13px;
+    background: var(--blue-soft); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; margin-top: 2px;
+  }
+  .step b { font-size: 15px; }
+  .step p { font-size: 13px; color: var(--t2); margin-top: 2px; }
+  .drop {
+    border: 2px dashed var(--line); border-radius: 14px; padding: 28px 16px;
+    text-align: center; cursor: pointer; transition: border-color .2s;
+  }
+  .drop:hover, .drop.over { border-color: var(--blue); }
+  .drop .big { font-size: 15px; font-weight: 600; }
+  .drop .small { font-size: 12px; color: var(--t2); margin-top: 4px; }
+  input[type="text"], textarea {
+    width: 100%; background: var(--bg); color: var(--t1);
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit;
+    outline: none; margin-top: 6px;
+  }
+  input[type="text"]:focus, textarea:focus { border-color: var(--blue); }
+  textarea { min-height: 90px; resize: vertical; }
+  .field { margin-bottom: 12px; }
+  .field label { font-size: 13px; color: var(--t2); }
+  .btn {
+    display: inline-block; background: var(--blue); color: #fff;
+    border: none; border-radius: 12px; padding: 12px 22px;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--blue); border: 1px solid var(--blue); }
+  .result { display: none; }
+  .result.show { display: block; }
+  textarea.publish {
+    background: var(--blue-soft); border: 1px solid var(--blue);
+    font-size: 13px; white-space: pre-wrap;
+  }
+  .tip { font-size: 12px; color: var(--t2); margin-top: 8px; }
+  .ok { color: var(--ok); } .warn { color: var(--warn); }
+  .copy-ok { color: var(--ok); font-size: 13px; display: none; }
+  .footer { text-align: center; font-size: 12px; color: var(--t2); margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>营职课表 · 发布管理台</h1>
+    <span class="badge">仅作者使用</span>
+  </div>
+
+  <!-- 当前已发布版本 -->
+  <div class="card">
+    <h2>当前已发布版本</h2>
+    <dl class="kv" id="curVer">
+      <dt>状态</dt><dd>正在读取接口…</dd>
+    </dl>
+    <p class="tip">这是 App 检查更新接口（latest.json）里的最新版本，也是同学手机上会收到的版本。</p>
+  </div>
+
+  <!-- 发布新版 -->
+  <div class="card">
+    <h2>发布新版（3 步）</h2>
+
+    <div class="step">
+      <div class="step-n">1</div>
+      <div>
+        <b>选新版 APK 文件</b>
+        <p>网页自动算出文件大小和 SHA-256 校验值，不用你自己算。</p>
+      </div>
+    </div>
+    <div class="drop" id="drop">
+      <div class="big">点这里选新版 APK 文件</div>
+      <div class="small">也可以直接把 APK 拖进来（只支持 .apk 文件）</div>
+    </div>
+    <input type="file" id="fileInput" accept=".apk" hidden>
+    <div id="fileInfo" style="display:none;margin-top:10px;font-size:13px;">
+      <div>文件名：<b id="fName"></b></div>
+      <div>大小：<b id="fSize"></b></div>
+      <div>SHA-256：<code id="fSha" style="word-break:break-all;"></code></div>
+    </div>
+
+    <div class="step" style="margin-top:20px;">
+      <div class="step-n">2</div>
+      <div><b>填版本信息</b><p>版本号、build 号和更新说明，同学更新时能看到说明。</p></div>
+    </div>
+    <div class="field">
+      <label>版本号（格式 v1.0.69）</label>
+      <input type="text" id="verName" placeholder="v1.0.69">
+    </div>
+    <div class="field">
+      <label>Build 号（数字，必须比上一版大，例如 33）</label>
+      <input type="text" id="verCode" placeholder="33">
+    </div>
+    <div class="field">
+      <label>更新说明（每行一条）</label>
+      <textarea id="notes" placeholder="修复：xxx&#10;新增：xxx"></textarea>
+    </div>
+
+    <div class="step" style="margin-top:8px;">
+      <div class="step-n">3</div>
+      <div><b>生成发布单</b><p>所有信息打包成一段文字，复制后连同新版 APK 一起发给豆包，说“发布新版”即可。</p></div>
+    </div>
+    <button class="btn" id="genBtn" disabled>生成发布单</button>
+    <button class="btn ghost" id="copyBtn" style="display:none;">复制发布单</button>
+    <span class="copy-ok" id="copied">已复制 ✓</span>
+
+    <div class="result" id="resultBox">
+      <textarea class="publish" id="resultText" readonly rows="10"></textarea>
+    </div>
+  </div>
+
+  <!-- 发布流程说明 -->
+  <div class="card">
+    <h2>发布流程说明</h2>
+    <div class="step">
+      <div class="step-n">①</div>
+      <div><b>生成发布单</b><p>在上面的管理台里选 APK、填信息、生成并复制发布单。</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">②</div>
+      <div><b>发给豆包执行</b><p>把发布单和新版 APK 文件一起发给豆包，说“发布新版”。豆包会：上传 APK → 更新下载页 → 更新检查接口 → 验证。</p></div>
+    </div>
+    <div class="step">
+      <div class="step-n">③</div>
+      <div><b>发布完成</b><p>同学访问下载站就是新版；装过旧版的同学，打开 App 会自动收到“发现新版本”的提示。</p></div>
+    </div>
+    <p class="tip warn">为什么上传 APK 要交给豆包？新版 APK 有 50 多 MB，网页和 GitHub 接口都传不了这么大的文件，只有 git 能传。所以网页负责“算好一切信息”，传文件这步由豆包代做，2 分钟搞定。</p>
+  </div>
+
+  <div class="footer">营职课表 · 发布管理台 · 与下载站、App 检查更新接口联通</div>
+</div>
+
+<script>
+  var drop = document.getElementById('drop');
+  var fileInput = document.getElementById('fileInput');
+  var verName = document.getElementById('verName');
+  var verCode = document.getElementById('verCode');
+  var notes = document.getElementById('notes');
+  var genBtn = document.getElementById('genBtn');
+  var copyBtn = document.getElementById('copyBtn');
+  var copied = document.getElementById('copied');
+  var resultBox = document.getElementById('resultBox');
+  var resultText = document.getElementById('resultText');
+
+  var picked = null; // { file, sizeBytes, sizeMB, sha }
+
+  drop.addEventListener('click', function () { fileInput.click(); });
+  drop.addEventListener('dragover', function (e) { e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', function () { drop.classList.remove('over'); });
+  drop.addEventListener('drop', function (e) {
+    e.preventDefault(); drop.classList.remove('over');
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', function () {
+    if (fileInput.files.length) handleFile(fileInput.files[0]);
+  });
+
+  function handleFile(file) {
+    if (!file.name.toLowerCase().endsWith('.apk')) {
+      alert('请选择 .apk 文件（新版安装包）');
+      return;
+    }
+    var sizeMB = (file.size / 1024 / 1024).toFixed(2);
+    document.getElementById('fName').textContent = file.name;
+    document.getElementById('fSize').textContent = sizeMB + ' MB（' + file.size.toLocaleString() + ' 字节）';
+    document.getElementById('fileInfo').style.display = 'block';
+    document.getElementById('fSha').textContent = '正在计算…';
+    sha256Hex(file).then(function (hex) {
+      picked = { file: file, sizeBytes: file.size, sizeMB: sizeMB, sha: hex, name: file.name };
+      document.getElementById('fSha').textContent = hex;
+      tryAutoEnable();
+    }).catch(function () {
+      document.getElementById('fSha').textContent = '计算失败，请重试';
+    });
+  }
+
+  function sha256Hex(file) {
+    return file.arrayBuffer().then(function (buf) {
+      return crypto.subtle.digest('SHA-256', buf);
+    }).then(function (digest) {
+      var bytes = new Uint8Array(digest);
+      var hex = '';
+      for (var i = 0; i < bytes.length; i++) {
+        hex += ('0' + bytes[i].toString(16)).slice(-2);
+      }
+      return hex.toUpperCase();
+    });
+  }
+
+  function tryAutoEnable() {
+    if (picked && verName.value.trim() && verCode.value.trim()) {
+      genBtn.disabled = false;
+    } else {
+      genBtn.disabled = true;
+    }
+  }
+  verName.addEventListener('input', tryAutoEnable);
+  verCode.addEventListener('input', tryAutoEnable);
+
+  genBtn.addEventListener('click', function () {
+    if (!picked) { alert('请先选新版 APK 文件'); return; }
+    var ver = verName.value.trim();
+    var code = verCode.value.trim();
+    var noteLines = notes.value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    var text = '【营职课表 新版发布单】\n';
+    text += '版本名: ' + ver + '\n';
+    text += 'Build: ' + code + '\n';
+    text += '文件名: ' + picked.name + '\n';
+    text += '大小: ' + picked.sizeMB + ' MB（' + picked.sizeBytes.toLocaleString() + ' 字节）\n';
+    text += 'SHA-256: ' + picked.sha + '\n';
+    text += '更新说明:\n';
+    noteLines.forEach(function (n) { text += '- ' + n + '\n'; });
+    text += '\n请把这份发布单连同新版 APK 一起发给豆包，说「发布新版」。';
+    resultText.value = text;
+    resultBox.classList.add('show');
+    copyBtn.style.display = 'inline-block';
+    copied.style.display = 'none';
+  });
+
+  copyBtn.addEventListener('click', function () {
+    resultText.select();
+    navigator.clipboard.writeText(resultText.value).then(function () {
+      copied.style.display = 'inline';
+      setTimeout(function () { copied.style.display = 'none'; }, 2000);
+    }).catch(function () {
+      document.execCommand('copy');
+      copied.style.display = 'inline';
+      setTimeout(function () { copied.style.display = 'none'; }, 2000);
+    });
+  });
+
+  // 读取当前已发布版本（检查接口）
+  fetch('https://uystudio.github.io/class-schedule-app/latest.json')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var kv = document.getElementById('curVer');
+      var notesHtml = (d.notes || []).map(function (n) { return '<div>- ' + n + '</div>'; }).join('');
+      kv.innerHTML =
+        '<dt>版本</dt><dd><b>' + (d.versionName || '') + '</b>（build ' + (d.versionCode || '') + '）</dd>' +
+        '<dt>大小</dt><dd>' + (d.sizeMB || '') + '</dd>' +
+        '<dt>发布日期</dt><dd>' + (d.releaseDate || '') + '</dd>' +
+        '<dt>SHA-256</dt><dd><code>' + (d.sha256 || '') + '</code></dd>' +
+        '<dt>更新说明</dt><dd>' + notesHtml + '</dd>';
+    })
+    .catch(function () {
+      document.getElementById('curVer').innerHTML =
+        '<dt>状态</dt><dd class="warn">读取接口失败（可能是暂时断网），不影响发布。</dd>';
+    });
+</script>
+</body>
+</html>

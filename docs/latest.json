@@ -1,19 +1,17 @@
-{
-  "app": "营职课表",
-  "appId": "yingzhi-timetable",
-  "versionName": "v1.0.68",
-  "versionCode": 32,
-  "build": "32",
-  "sizeBytes": 54054962,
-  "sizeMB": "51.5 MB",
-  "minAndroid": "7.0",
-  "releaseDate": "2026-10-20",
-  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.68.apk",
-  "pageUrl": "https://uystudio.github.io/class-schedule-app/",
-  "sha256": "E8413A92284896127FDD4900DE95DB142D6599494BCFF019AE64DB0934E8468A",
-  "notes": [
-    "修复：从「我的」切回「今日」时，偶尔显示成前一天的课表",
-    "地点显示统一去掉括号别名，例如「博识楼（综合教学楼）303」显示为「博识楼303」",
-    "抓取兼容合并单元格的课表，避免同一门课被写进相邻的星期"
-  ]
+﻿{
+    "app":  "营职课表",
+    "appId":  "yingzhi-timetable",
+    "versionName":  "v1.0.69",
+    "versionCode":  33,
+    "build":  "33",
+    "sizeBytes":  54071430,
+    "sizeMB":  "51.57 MB",
+    "minAndroid":  "7.0",
+    "releaseDate":  "2026-10-31",
+    "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.69.apk",
+    "pageUrl":  "https://uystudio.github.io/class-schedule-app/",
+    "sha256":  "AC12A7F82AEA3D43AAB300121B3933C179712BE5C54B86EA38FA5C72F131254D",
+    "notes":  [
+                  "新增版本更新提醒：发现新版本时自动弹窗，一键去下载"
+              ]
 }
