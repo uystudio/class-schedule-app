@@ -1,18 +1,17 @@
-{
+﻿{
     "app":  "营职课表",
     "appId":  "yingzhi-timetable",
-    "versionName":  "v1.0.70",
-    "versionCode":  34,
-    "build":  "34",
-    "sizeBytes":  54777500,
+    "versionName":  "v1.0.71",
+    "versionCode":  35,
+    "build":  "35",
+    "sizeBytes":  54777720,
     "sizeMB":  "52.24 MB",
     "minAndroid":  "7.0",
     "releaseDate":  "2026-11-01",
-    "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.70.apk",
+    "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.71.apk",
     "pageUrl":  "https://uystudio.github.io/class-schedule-app/",
-    "sha256":  "718F52B00932B9D7704FAC7451F377695DE767652C4666F32200110C7B7B449D",
+    "sha256":  "DB0062D16617FBF6C060D924814C9E19C76859C9B7D97F134F91D3B2755372F5",
     "notes":  [
-                  "更新了下载弹窗",
-                  "优化了用户体验"
+                  "手机里装了旧版的同学打开 App 检查更新时会认为 \"没有新版本\""
               ]
 }
