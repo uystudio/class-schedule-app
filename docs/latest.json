@@ -4,15 +4,14 @@
     "versionName":  "v1.0.70",
     "versionCode":  1,
     "build":  "1",
-    "sizeBytes":  54777924,
+    "sizeBytes":  54777500,
     "sizeMB":  "52.24 MB",
     "minAndroid":  "7.0",
     "releaseDate":  "2026-11-01",
     "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.70.apk",
     "pageUrl":  "https://uystudio.github.io/class-schedule-app/",
-    "sha256":  "8C767AD60E6CB5AEF0F86EAE964F8F32AF5FFD63504C131CEFE25DF708DD0AD3",
+    "sha256":  "718F52B00932B9D7704FAC7451F377695DE767652C4666F32200110C7B7B449D",
     "notes":  [
-                  "更新了下载弹窗",
-                  "优化了用户体验"
+
               ]
 }
