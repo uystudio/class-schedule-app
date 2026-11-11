@@ -1,18 +1,17 @@
 ﻿{
     "app":  "营职课表",
     "appId":  "yingzhi-timetable",
-    "versionName":  "v1.0.72",
-    "versionCode":  36,
-    "build":  "36",
-    "sizeBytes":  60748642,
-    "sizeMB":  "57.93 MB",
+    "versionName":  "v1.0.73",
+    "versionCode":  37,
+    "build":  "37",
+    "sizeBytes":  60781634,
+    "sizeMB":  "57.97 MB",
     "minAndroid":  "7.0",
-    "releaseDate":  "2026-11-10",
-    "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.72.apk",
+    "releaseDate":  "2026-11-11",
+    "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.73.apk",
     "pageUrl":  "https://uystudio.github.io/class-schedule-app/",
-    "sha256":  "B1B9BA124BAAE618C8F091D713BDAC112F4BAEC031159D18CA88E040A84D7B97",
+    "sha256":  "B806DCC79FBEB66CD959CADE8BE21684485704110F5BD0877B041C8E05F1240A",
     "notes":  [
-                  "上线了魔法学院",
-                  "能解决上课时手写课堂笔记的"
+                  "优化已知的BUG"
               ]
 }
