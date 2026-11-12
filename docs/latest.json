@@ -12,8 +12,6 @@
   "pageUrl": "https://uystudio.github.io/class-schedule-app/",
   "sha256": "BF9675FDB5188FE12EA6E72AE6A38861C6F0FFC000A1C4E08C420F1E724E6F77",
   "notes": [
-    "新增版本与公告提醒：后台发现新版本或新公告会推送到通知栏，点开直达对应页面",
-    "App 处于前台时不重复推送，同一条内容只提醒一次",
-    "首次安装只记录公告基线，不会弹出历史旧公告"
+    "优化"
   ]
 }
