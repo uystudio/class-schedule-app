@@ -1,19 +1,19 @@
 {
   "app": "营职课表",
   "appId": "yingzhi-timetable",
-  "versionName": "v1.0.74",
-  "versionCode": 38,
-  "build": "38",
-  "sizeBytes": 61044658,
-  "sizeMB": "58.22 MB",
+  "versionName": "v1.0.75",
+  "versionCode": 39,
+  "build": "39",
+  "sizeBytes": 61159454,
+  "sizeMB": "58.33 MB",
   "minAndroid": "7.0",
   "releaseDate": "2026-11-12",
-  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.74.apk",
+  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.75.apk",
   "pageUrl": "https://uystudio.github.io/class-schedule-app/",
-  "sha256": "4D123AE21904369AC4A82C8949751F3CCC5483BF6B73B58C41D1A41EBB0BACFB",
+  "sha256": "BAFB89153C4D5335B6DAC9A2EDB8A109593E667F167C4D8F0D215B7378BE027F",
   "notes": [
-    "优化下载问题",
-    "内置下载器改为多连接分片，速度更快",
-    "检查更新支持 App 内直接下载安装"
+    "打开App自动检查更新，有新版本直接弹窗提醒",
+    "修复上课提醒：增加系统闹钟备份，App被后台清掉也能提醒",
+    "我的页新增「提醒自检」，一键看出权限、后台服务、下一条提醒"
   ]
 }
