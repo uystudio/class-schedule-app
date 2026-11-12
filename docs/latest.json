@@ -1,18 +1,19 @@
 {
   "app": "营职课表",
   "appId": "yingzhi-timetable",
-  "versionName": "v1.0.76",
-  "versionCode": 40,
-  "build": "40",
-  "sizeBytes": 61142882,
-  "sizeMB": "58.31 MB",
+  "versionName": "v1.0.77",
+  "versionCode": 41,
+  "build": "41",
+  "sizeBytes": 61159266,
+  "sizeMB": "58.33 MB",
   "minAndroid": "7.0",
   "releaseDate": "2026-11-12",
-  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.76.apk",
+  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.77.apk",
   "pageUrl": "https://uystudio.github.io/class-schedule-app/",
-  "sha256": "AD6DFDBA7C149B3024E77854C2C55D7AD5488F4C43D9952D182E0712D6C76C96",
+  "sha256": "E8DBFC51653DA996D1212E356FC02538872478B2AFB2CC0DC5ED0B6C3B6BDECC",
   "notes": [
-    "「我的」页不再显示「检查更新」和「提醒自检」入口",
-    "两个功能照常在后台运行：启动自动检查更新、系统闹钟备份提醒"
+    "「我的」页去掉「检查更新」「提醒自检」两个入口",
+    "功能都还在：启动自动检查更新、系统闹钟备份提醒",
+    "想手动检查更新就点「关于」里的版本行，长按同一行是提醒自检"
   ]
 }
