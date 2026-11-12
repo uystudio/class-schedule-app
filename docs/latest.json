@@ -12,8 +12,6 @@
   "pageUrl": "https://uystudio.github.io/class-schedule-app/",
   "sha256": "BAFB89153C4D5335B6DAC9A2EDB8A109593E667F167C4D8F0D215B7378BE027F",
   "notes": [
-    "打开App自动检查更新，有新版本直接弹窗提醒",
-    "修复上课提醒：增加系统闹钟备份，App被后台清掉也能提醒",
-    "我的页新增「提醒自检」，一键看出权限、后台服务、下一条提醒"
+    "优化一些已知问题"
   ]
 }
