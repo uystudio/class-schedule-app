@@ -1,17 +1,19 @@
-﻿{
-    "app":  "营职课表",
-    "appId":  "yingzhi-timetable",
-    "versionName":  "v1.0.74",
-    "versionCode":  38,
-    "build":  "38",
-    "sizeBytes":  61044658,
-    "sizeMB":  "58.22 MB",
-    "minAndroid":  "7.0",
-    "releaseDate":  "2026-11-12",
-    "url":  "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.74.apk",
-    "pageUrl":  "https://uystudio.github.io/class-schedule-app/",
-    "sha256":  "4D123AE21904369AC4A82C8949751F3CCC5483BF6B73B58C41D1A41EBB0BACFB",
-    "notes":  [
-                  "优化下载问题"
-              ]
+{
+  "app": "营职课表",
+  "appId": "yingzhi-timetable",
+  "versionName": "v1.0.74",
+  "versionCode": 38,
+  "build": "38",
+  "sizeBytes": 61044658,
+  "sizeMB": "58.22 MB",
+  "minAndroid": "7.0",
+  "releaseDate": "2026-11-12",
+  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.74.apk",
+  "pageUrl": "https://uystudio.github.io/class-schedule-app/",
+  "sha256": "4D123AE21904369AC4A82C8949751F3CCC5483BF6B73B58C41D1A41EBB0BACFB",
+  "notes": [
+    "优化下载问题",
+    "内置下载器改为多连接分片，速度更快",
+    "检查更新支持 App 内直接下载安装"
+  ]
 }
