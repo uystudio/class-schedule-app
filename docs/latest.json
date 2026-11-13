@@ -1,17 +1,18 @@
 {
   "app": "营职课表",
   "appId": "yingzhi-timetable",
-  "versionName": "v1.0.79",
-  "versionCode": 43,
-  "build": "43",
-  "sizeBytes": 61028198,
-  "sizeMB": "58.20 MB",
+  "versionName": "v1.0.80",
+  "versionCode": 44,
+  "build": "44",
+  "sizeBytes": 60946250,
+  "sizeMB": "58.12 MB",
   "minAndroid": "7.0",
-  "releaseDate": "2026-11-12",
-  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.79.apk",
+  "releaseDate": "2026-11-13",
+  "url": "https://media.githubusercontent.com/media/uystudio/class-schedule-app/main/docs/apk/yingzhi-timetable-v1.0.80.apk",
   "pageUrl": "https://uystudio.github.io/class-schedule-app/",
-  "sha256": "BF9675FDB5188FE12EA6E72AE6A38861C6F0FFC000A1C4E08C420F1E724E6F77",
+  "sha256": "005B635AF109883808F90F8C90CC4BFC61AD71E1E521FA12C1289EEC4BFA881F",
   "notes": [
-    "优化"
+    "去掉 App 内的灵动岛提醒卡片，上课提醒统一走通知栏",
+    "下载页介绍文案同步调整，「灵动岛提醒」改为「通知栏提醒」"
   ]
 }
