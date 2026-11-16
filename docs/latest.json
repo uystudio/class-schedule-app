@@ -12,6 +12,8 @@
   "pageUrl": "https://uystudio.github.io/class-schedule-app/",
   "sha256": "005B635AF109883808F90F8C90CC4BFC61AD71E1E521FA12C1289EEC4BFA881F",
   "notes": [
-    "优化已知问题"
+    "去掉 App 内的灵动岛提醒卡片，上课提醒统一走通知栏",
+    "App 前台心跳保留，后台版本与公告提醒不受影响",
+    "下载页介绍文案同步更新"
   ]
 }
